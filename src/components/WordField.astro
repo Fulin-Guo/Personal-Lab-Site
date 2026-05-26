@@ -1,0 +1,54 @@
+---
+import { profile } from "@/data/profile";
+
+const words = Array.from({ length: 32 }, (_, index) => {
+  const keyword = index % 3 === 0 ? profile.initials : profile.keywords[index % profile.keywords.length];
+  return `${profile.initials} ${keyword}`;
+});
+---
+
+<div class="word-field mono" aria-hidden="true">
+  {words.map((word) => <span>{word}</span>)}
+</div>
+
+<style>
+  .word-field {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-wrap: wrap;
+    align-content: center;
+    gap: 10px 30px;
+    overflow: hidden;
+    color: rgba(244, 244, 240, 0.088);
+    font-size: clamp(38px, 8.2vw, 138px);
+    font-weight: 950;
+    letter-spacing: -0.09em;
+    line-height: 0.76;
+    text-transform: uppercase;
+    transform: rotate(-5deg) scale(1.15);
+    user-select: none;
+  }
+
+  .word-field span:nth-child(odd) {
+    color: rgba(244, 244, 240, 0.05);
+  }
+
+  .word-field span {
+    white-space: nowrap;
+    animation: drift 18s linear infinite alternate;
+  }
+
+  .word-field span:nth-child(3n) {
+    animation-duration: 24s;
+  }
+
+  @keyframes drift {
+    from {
+      transform: translateX(-24px);
+    }
+    to {
+      transform: translateX(24px);
+    }
+  }
+</style>

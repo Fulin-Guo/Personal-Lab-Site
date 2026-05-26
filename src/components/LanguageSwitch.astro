@@ -1,0 +1,295 @@
+<div class="lang-menu mono" data-lang-menu>
+  <button class="lang-trigger" type="button" aria-label="Switch language" aria-expanded="false" data-lang-switch>
+    <span class="translate-icon">
+      <svg width="18" height="18" viewBox="0 0 32 32" aria-hidden="true">
+        <path
+          fill="currentColor"
+          d="M27.85 29H30l-6-15h-2.35l-6 15h2.15l1.6-4h6.85zm-7.65-6 2.62-6.56L25.45 23zM18 7V5h-7V2H9v3H2v2h10.74a14.7 14.7 0 0 1-3.19 6.18A13.5 13.5 0 0 1 7.26 9h-2.1a16.5 16.5 0 0 0 3 5.58A16.8 16.8 0 0 1 3 18l.75 1.86A18.5 18.5 0 0 0 9.53 16a16.9 16.9 0 0 0 5.76 3.84L16 18a14.5 14.5 0 0 1-5.12-3.37A17.64 17.64 0 0 0 14.8 7z"
+        ></path>
+      </svg>
+    </span>
+    <svg class="chevron" width="16" height="16" viewBox="0 0 32 32" aria-hidden="true">
+      <path fill="currentColor" d="M16 22 6 12l1.4-1.4 8.6 8.6 8.6-8.6L26 12z"></path>
+    </svg>
+  </button>
+  <div class="lang-dropdown" data-lang-dropdown>
+    <div class="dropdown-inner">
+      <button type="button" data-lang-option="en">English</button>
+      <button type="button" data-lang-option="zh">简体中文</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  const dictionary = {
+    zh: {
+      navWorks: "作品",
+      navResume: "简历",
+      navLogs: "日志",
+      navUpdates: "更新",
+      navContact: "联系",
+      personalLab: "个人实验室",
+      heroEyebrow: "系统在线 / 个人主页",
+      heroTitlePrefix: "你好，我是",
+      heroRole: "AI Agent / 全栈 / 安全工程师",
+      heroTagline: "我构建智能系统、开发者工具和安全的 Web 体验。",
+      viewWorks: "查看作品",
+      readResume: "查看简历",
+      statusLabel: "状态",
+      locationLabel: "位置",
+      focusLabel: "方向",
+      statusValue: "开放合作中",
+      locationValue: "中国",
+      aboutKicker: "关于 / 宣言",
+      aboutTitle: "一个用于展示系统、工具与技术写作的个人实验室。",
+      aboutP1:
+        "这里是一个偏研究机构气质的个人主页：克制、锐利、信息密度高。首页负责建立记忆点，作品页负责说明能力，简历页负责结构化展示经历，博客用于沉淀长期技术输出。",
+      aboutP2:
+        "视觉上参考 MiMo 一类的黑白未来编辑风，但不复刻具体品牌元素；通过重复文字纹理、巨型标题、编号系统、硬边框和少量科技状态符号，形成个人化的技术身份。",
+      worksKicker: "精选作品",
+      worksTitle: "把项目作为案例记录，而不是缩略图噪音。",
+      open: "打开 ->",
+      project1Summary: "面向安全运营、工作流规划与工具编排的受限 Agent Runtime。",
+      project2Summary: "用于文档智能、检索与人在回路分析的可视化工作流。",
+      project3Summary: "黑白研究风个人主页，包含动态文字排版和清晰的信息架构。",
+      resumeKicker: "简历摘要",
+      resumeTitle: "结构化能力档案。",
+      timeline: "时间线",
+      skillMatrix: "技能矩阵",
+      fullResume: "完整简历",
+      blogKicker: "技术日志",
+      blogTitle: "写作是可持续的技术记忆。",
+      allLogs: "全部日志",
+      contactKicker: "联系 / 合作",
+      contactTitle: "一起做点锋利的东西。",
+      pageWorksKicker: "作品 / 案例记录",
+      pageWorksTitle: "精选项目。",
+      pageResumeKicker: "个人档案",
+      pageBlogKicker: "技术日志",
+      pageBlogTitle: "写作索引。",
+      backToLogs: "← 返回日志",
+    },
+    en: {
+      navWorks: "Works",
+      navResume: "Resume",
+      navLogs: "Logs",
+      navUpdates: "Updates",
+      navContact: "Contact",
+      personalLab: "Personal Lab",
+      heroEyebrow: "System Online / Personal Homepage",
+      heroTitlePrefix: "Hello, I'm",
+      heroRole: "AI Agent / Full-stack / Security Engineer",
+      heroTagline: "I build intelligent systems, developer tools, and secure web experiences.",
+      viewWorks: "View Works",
+      readResume: "Read Resume",
+      statusLabel: "Status",
+      locationLabel: "Location",
+      focusLabel: "Focus",
+      statusValue: "Available for collaboration",
+      locationValue: "China",
+      aboutKicker: "About / Manifesto",
+      aboutTitle: "A personal lab for systems, tools, and technical writing.",
+      aboutP1:
+        "This is a research-studio style personal homepage: restrained, sharp, and information-dense. The homepage creates recognition, the works page proves capability, the resume page structures experience, and the blog preserves long-term technical output.",
+      aboutP2:
+        "The visual language references monochrome future editorial sites like MiMo without copying brand elements. Repeated text fields, oversized typography, numbering, hard borders, and small system-status details create a personal technical identity.",
+      worksKicker: "Selected Works",
+      worksTitle: "Projects as case records, not thumbnail noise.",
+      open: "OPEN ->",
+      project1Summary: "A constrained agent runtime for security operations, workflow planning, and tool orchestration.",
+      project2Summary: "A visual workflow for document intelligence, retrieval, and human-in-the-loop analysis.",
+      project3Summary: "A monochrome research-style homepage with kinetic typography and sharp content architecture.",
+      resumeKicker: "Resume Snapshot",
+      resumeTitle: "Structured capability profile.",
+      timeline: "Timeline",
+      skillMatrix: "Skill Matrix",
+      fullResume: "Full Resume",
+      blogKicker: "Technical Logs",
+      blogTitle: "Writing as durable technical memory.",
+      allLogs: "All Logs",
+      contactKicker: "Contact / Collaboration",
+      contactTitle: "Let's build something sharp.",
+      pageWorksKicker: "Works / Case Records",
+      pageWorksTitle: "Selected projects.",
+      pageResumeKicker: "Profile Record",
+      pageBlogKicker: "Technical Logs",
+      pageBlogTitle: "Writing index.",
+      backToLogs: "← Back to logs",
+    },
+  };
+
+  type Lang = keyof typeof dictionary;
+
+  const applyLanguage = (lang: Lang) => {
+    document.documentElement.lang = lang === "zh" ? "zh-CN" : "en";
+    document.documentElement.dataset.lang = lang;
+    localStorage.setItem("site-language", lang);
+
+    document.querySelectorAll<HTMLElement>("[data-i18n]").forEach((node) => {
+      const key = node.dataset.i18n;
+      if (!key) return;
+      const value = dictionary[lang][key as keyof (typeof dictionary)[Lang]];
+      if (value) node.textContent = value;
+    });
+
+    document.querySelectorAll<HTMLElement>("[data-lang-menu]").forEach((node) => {
+      node.dataset.currentLang = lang;
+    });
+
+    document.querySelectorAll<HTMLButtonElement>("[data-lang-option]").forEach((node) => {
+      const isActive = node.dataset.langOption === lang;
+      node.dataset.active = String(isActive);
+      node.setAttribute("aria-current", isActive ? "true" : "false");
+    });
+  };
+
+  const saved = localStorage.getItem("site-language");
+  const initial: Lang = saved === "en" || saved === "zh" ? saved : "zh";
+  applyLanguage(initial);
+
+  document.querySelectorAll<HTMLElement>("[data-lang-menu]").forEach((menu) => {
+    const trigger = menu.querySelector<HTMLButtonElement>("[data-lang-switch]");
+    if (!trigger) return;
+
+    trigger.addEventListener("click", () => {
+      const isOpen = menu.dataset.open === "true";
+      menu.dataset.open = String(!isOpen);
+      trigger.setAttribute("aria-expanded", String(!isOpen));
+    });
+
+    menu.querySelectorAll<HTMLButtonElement>("[data-lang-option]").forEach((option) => {
+      option.addEventListener("click", () => {
+        const lang = option.dataset.langOption === "en" ? "en" : "zh";
+        applyLanguage(lang);
+        menu.dataset.open = "false";
+        trigger.setAttribute("aria-expanded", "false");
+      });
+    });
+
+    document.addEventListener("click", (event) => {
+      if (event.target instanceof Node && !menu.contains(event.target)) {
+        menu.dataset.open = "false";
+        trigger.setAttribute("aria-expanded", "false");
+      }
+    });
+  });
+</script>
+
+<style>
+  .lang-menu {
+    position: relative;
+    display: flex;
+    align-items: center;
+    height: 56px;
+  }
+
+  .lang-trigger {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
+    height: 56px;
+    padding: 0 12px;
+    border: 0;
+    background: transparent;
+    color: var(--text);
+    cursor: pointer;
+    transition: color 200ms ease;
+  }
+
+  .lang-trigger:hover,
+  .lang-menu[data-open="true"] .lang-trigger {
+    color: var(--accent);
+  }
+
+  .translate-icon {
+    display: flex;
+    align-items: center;
+    margin-right: 2px;
+  }
+
+  .chevron {
+    display: block;
+    transition: transform 180ms ease;
+  }
+
+  .lang-menu[data-open="true"] .chevron,
+  .lang-menu:hover .chevron {
+    transform: rotate(180deg);
+  }
+
+  .lang-dropdown {
+    position: absolute;
+    top: 52px;
+    right: 0;
+    z-index: 100;
+    min-width: 128px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(4px);
+    transition: opacity 200ms ease, transform 200ms ease, visibility 200ms ease;
+  }
+
+  .lang-menu:hover .lang-dropdown,
+  .lang-menu[data-open="true"] .lang-dropdown {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+
+  .dropdown-inner {
+    width: 100%;
+    padding: 12px 8px;
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    background: rgba(5, 5, 5, 0.96);
+    box-shadow: 0 18px 60px rgba(0, 0, 0, 0.42);
+    backdrop-filter: blur(14px);
+    white-space: nowrap;
+  }
+
+  .dropdown-inner button {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    min-height: 34px;
+    padding: 6px 24px 6px 12px;
+    border: 0;
+    border-radius: 999px;
+    background: transparent;
+    color: var(--text);
+    cursor: pointer;
+    font: inherit;
+    font-size: 14px;
+    font-weight: 600;
+    text-align: left;
+    transition: background 160ms ease, color 160ms ease;
+  }
+
+  .dropdown-inner button + button {
+    margin-top: 4px;
+  }
+
+  .dropdown-inner button:hover {
+    background: rgba(255, 255, 255, 0.07);
+  }
+
+  .dropdown-inner button[data-active="true"] {
+    color: var(--accent);
+  }
+
+  @media (max-width: 760px) {
+    .lang-menu,
+    .lang-trigger {
+      height: 42px;
+    }
+
+    .lang-trigger {
+      padding: 0 6px;
+    }
+
+    .lang-dropdown {
+      top: 40px;
+    }
+  }
+</style>

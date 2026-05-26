@@ -1,0 +1,48 @@
+---
+import SectionHeader from "./SectionHeader.astro";
+---
+
+<section class="section">
+  <div class="container">
+    <SectionHeader
+      index="00"
+      kicker="About / Manifesto"
+      title="A personal lab for systems, tools, and technical writing."
+      kickerKey="aboutKicker"
+      titleKey="aboutTitle"
+    />
+    <div class="about-grid">
+      <p data-i18n="aboutP1">
+        这里是一个偏研究机构气质的个人主页：克制、锐利、信息密度高。首页负责建立记忆点，
+        作品页负责说明能力，简历页负责结构化展示经历，博客用于沉淀长期技术输出。
+      </p>
+      <p data-i18n="aboutP2">
+        视觉上参考 MiMo 一类的黑白未来编辑风，但不复刻具体品牌元素；通过重复文字纹理、
+        巨型标题、编号系统、硬边框和少量科技状态符号，形成个人化的技术身份。
+      </p>
+    </div>
+  </div>
+</section>
+
+<style>
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 28px;
+    padding-left: 114px;
+  }
+
+  p {
+    margin: 0;
+    color: var(--muted);
+    font-size: clamp(18px, 2vw, 24px);
+    line-height: 1.7;
+  }
+
+  @media (max-width: 760px) {
+    .about-grid {
+      grid-template-columns: 1fr;
+      padding-left: 0;
+    }
+  }
+</style>

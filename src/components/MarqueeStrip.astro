@@ -1,0 +1,48 @@
+---
+interface Props {
+  text?: string;
+}
+
+const { text = "PERSONAL LAB / AI AGENT / SECURITY / FULL STACK / TECHNICAL WRITING" } = Astro.props;
+const items = Array.from({ length: 2 }, () => text);
+---
+
+<div class="marquee mono" aria-hidden="true">
+  <div>
+    {items.map((item) => <span>{item}</span>)}
+  </div>
+</div>
+
+<style>
+  .marquee {
+    overflow: hidden;
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    background: #f4f4f0;
+    color: #050505;
+  }
+
+  .marquee div {
+    display: flex;
+    width: max-content;
+    animation: marquee 28s linear infinite;
+  }
+
+  .marquee span {
+    padding: 13px 26px;
+    font-size: 12px;
+    font-weight: 900;
+    letter-spacing: 0.16em;
+    white-space: nowrap;
+  }
+
+  @keyframes marquee {
+    from {
+      transform: translateX(0);
+    }
+
+    to {
+      transform: translateX(-50%);
+    }
+  }
+</style>

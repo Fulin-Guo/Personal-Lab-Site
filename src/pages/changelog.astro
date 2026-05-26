@@ -1,0 +1,141 @@
+---
+import { getCollection, render } from "astro:content";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Header from "@/components/Header.astro";
+import ContactBlock from "@/components/ContactBlock.astro";
+
+const entries = (await getCollection("changelog")).sort(
+  (a, b) => b.data.date.getTime() - a.data.date.getTime(),
+);
+
+const renderedEntries = await Promise.all(
+  entries.map(async (entry) => ({
+    entry,
+    Content: (await render(entry)).Content,
+  })),
+);
+---
+
+<BaseLayout title="Updates | Personal Lab" description="Project update logs and release notes.">
+  <Header />
+  <main class="container page">
+    <p class="mono eyebrow">CHANGELOG / UPDATE RECORDS</p>
+    <h1>Update logs.</h1>
+    <div class="entries">
+      {
+        renderedEntries.map(({ entry, Content }, index) => (
+          <article class="entry cut-card">
+            <div class="entry-meta mono">
+              <span>{String(index + 1).padStart(2, "0")}</span>
+              <time datetime={entry.data.date.toISOString()}>
+                {entry.data.date.toISOString().slice(0, 10)}
+              </time>
+              <b>{entry.data.type}</b>
+            </div>
+            <div>
+              <h2>{entry.data.title}</h2>
+              <p class="summary">{entry.data.summary}</p>
+              <div class="content">
+                <Content />
+              </div>
+            </div>
+          </article>
+        ))
+      }
+    </div>
+  </main>
+  <ContactBlock />
+</BaseLayout>
+
+<style>
+  .page {
+    padding: 86px 0;
+  }
+
+  .eyebrow {
+    color: var(--accent);
+    font-size: 12px;
+    font-weight: 900;
+    letter-spacing: 0.18em;
+  }
+
+  h1 {
+    margin: 0 0 48px;
+    font-size: clamp(58px, 12vw, 160px);
+    letter-spacing: -0.08em;
+    line-height: 0.86;
+    text-transform: uppercase;
+  }
+
+  .entries {
+    display: grid;
+    gap: 18px;
+  }
+
+  .entry {
+    display: grid;
+    grid-template-columns: 210px 1fr;
+    gap: 28px;
+    padding: 30px;
+  }
+
+  .entry-meta {
+    display: grid;
+    align-content: start;
+    gap: 12px;
+    color: var(--muted);
+    font-size: 12px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+
+  .entry-meta span {
+    color: var(--accent);
+    font-size: 30px;
+    font-weight: 900;
+  }
+
+  .entry-meta b {
+    width: fit-content;
+    padding: 6px 9px;
+    border: 1px solid var(--line);
+    color: var(--text);
+    font-size: 11px;
+  }
+
+  h2 {
+    margin: 0;
+    font-size: clamp(30px, 5vw, 72px);
+    letter-spacing: -0.06em;
+    line-height: 0.94;
+    text-transform: uppercase;
+  }
+
+  .summary {
+    max-width: 820px;
+    margin: 18px 0 24px;
+    color: var(--muted);
+    font-size: 19px;
+    line-height: 1.6;
+  }
+
+  .content {
+    max-width: 820px;
+    color: var(--muted);
+    line-height: 1.75;
+  }
+
+  .content :global(ul) {
+    padding-left: 20px;
+  }
+
+  .content :global(li + li) {
+    margin-top: 8px;
+  }
+
+  @media (max-width: 760px) {
+    .entry {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

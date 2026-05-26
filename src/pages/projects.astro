@@ -1,0 +1,92 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Header from "@/components/Header.astro";
+import ContactBlock from "@/components/ContactBlock.astro";
+import { projects } from "@/data/profile";
+---
+
+<BaseLayout title="Works | Personal Lab">
+  <Header />
+  <main class="container page">
+    <p class="mono eyebrow" data-i18n="pageWorksKicker">WORKS / CASE RECORDS</p>
+    <h1 data-i18n="pageWorksTitle">Selected projects.</h1>
+    <div class="project-stack">
+      {
+        projects.map((project) => (
+          <section class="cut-card detail" id={project.title.toLowerCase().replaceAll(" ", "-")}>
+            <span class="mono">{project.id}</span>
+            <h2>{project.title}</h2>
+            <p data-i18n={`project${project.id.replace(/^0/, "")}Summary`}>{project.summary}</p>
+            <ul class="mono">
+              {project.stack.map((item) => <li>{item}</li>)}
+            </ul>
+          </section>
+        ))
+      }
+    </div>
+  </main>
+  <ContactBlock />
+</BaseLayout>
+
+<style>
+  .page {
+    padding: 86px 0;
+  }
+
+  .eyebrow {
+    color: var(--accent);
+    font-size: 12px;
+    font-weight: 900;
+    letter-spacing: 0.18em;
+  }
+
+  h1 {
+    margin: 0 0 48px;
+    font-size: clamp(58px, 12vw, 160px);
+    letter-spacing: -0.08em;
+    line-height: 0.86;
+    text-transform: uppercase;
+  }
+
+  .project-stack {
+    display: grid;
+    gap: 18px;
+  }
+
+  .detail {
+    padding: 30px;
+  }
+
+  .detail span {
+    color: var(--accent);
+  }
+
+  h2 {
+    margin: 16px 0;
+    font-size: clamp(32px, 5vw, 76px);
+    letter-spacing: -0.06em;
+    line-height: 0.95;
+    text-transform: uppercase;
+  }
+
+  p {
+    max-width: 760px;
+    color: var(--muted);
+    font-size: 19px;
+    line-height: 1.65;
+  }
+
+  ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 0;
+    list-style: none;
+  }
+
+  li {
+    padding: 6px 9px;
+    border: 1px solid var(--line);
+    color: var(--muted);
+  }
+</style>

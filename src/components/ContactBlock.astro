@@ -1,0 +1,60 @@
+---
+import { profile } from "@/data/profile";
+---
+
+<section class="section contact" id="contact">
+  <div class="container">
+    <p class="mono" data-i18n="contactKicker">CONTACT / COLLABORATION</p>
+    <h2 data-i18n="contactTitle">Let's build something sharp.</h2>
+    <div class="links mono">
+      <a href={`mailto:${profile.email}`}>{profile.email}</a>
+      <a href={profile.github}>GitHub</a>
+      <a href="/blog">Technical Logs</a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .contact {
+    padding-bottom: 40px;
+  }
+
+  p {
+    margin: 0 0 14px;
+    color: var(--accent);
+    font-size: 12px;
+    font-weight: 900;
+    letter-spacing: 0.18em;
+  }
+
+  h2 {
+    max-width: 980px;
+    margin: 0;
+    font-size: clamp(50px, 9vw, 130px);
+    font-weight: 950;
+    letter-spacing: -0.075em;
+    line-height: 0.9;
+    text-transform: uppercase;
+  }
+
+  .links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 34px;
+  }
+
+  .links a {
+    padding: 12px 14px;
+    border: 1px solid var(--line);
+    color: var(--muted);
+    font-size: 12px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .links a:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+</style>

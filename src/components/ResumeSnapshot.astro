@@ -1,0 +1,92 @@
+---
+import { skills, timeline } from "@/data/profile";
+import SectionHeader from "./SectionHeader.astro";
+---
+
+<section class="section">
+  <div class="container">
+    <SectionHeader
+      index="02"
+      kicker="Resume Snapshot"
+      title="Structured capability profile."
+      kickerKey="resumeKicker"
+      titleKey="resumeTitle"
+    />
+    <div class="resume-grid">
+      <div class="cut-card panel">
+        <h3 class="mono" data-i18n="timeline">Timeline</h3>
+        {timeline.map((item) => (
+          <article>
+            <span class="mono">{item.year}</span>
+            <h4>{item.title}</h4>
+            <p>{item.detail}</p>
+          </article>
+        ))}
+      </div>
+      <div class="cut-card panel">
+        <h3 class="mono" data-i18n="skillMatrix">Skill Matrix</h3>
+        {skills.map((skill) => (
+          <article>
+            <span class="mono">{skill.group}</span>
+            <p>{skill.items.join(" / ")}</p>
+          </article>
+        ))}
+        <a class="btn secondary" href="/resume" data-i18n="fullResume">Full Resume</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .resume-grid {
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr;
+    gap: 18px;
+  }
+
+  .panel {
+    padding: 28px;
+  }
+
+  h3 {
+    margin: 0 0 24px;
+    color: var(--accent);
+    font-size: 13px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+
+  article {
+    padding: 22px 0;
+    border-top: 1px solid var(--line);
+  }
+
+  article span {
+    color: var(--muted);
+    font-size: 12px;
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+  }
+
+  h4 {
+    margin: 10px 0;
+    font-size: 24px;
+    letter-spacing: -0.04em;
+  }
+
+  p {
+    margin: 0;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  .btn {
+    margin-top: 12px;
+  }
+
+  @media (max-width: 880px) {
+    .resume-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

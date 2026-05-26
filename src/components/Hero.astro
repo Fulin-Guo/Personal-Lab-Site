@@ -1,0 +1,175 @@
+---
+import { profile } from "@/data/profile";
+import WordField from "./WordField.astro";
+---
+
+<section class="hero">
+  <WordField />
+  <div class="container hero-inner">
+    <div class="eyebrow mono">
+      <span></span>
+      <em data-i18n="heroEyebrow">SYSTEM ONLINE / PERSONAL HOMEPAGE</em>
+    </div>
+    <h1><span data-i18n="heroTitlePrefix">HELLO, I'M</span><br />{profile.name}</h1>
+    <div class="hero-copy">
+      <p class="lead" data-i18n="heroRole">{profile.role}</p>
+      <p class="tagline" data-i18n="heroTagline">{profile.tagline}</p>
+    </div>
+    <div class="actions">
+      <a class="btn" href="/projects" data-i18n="viewWorks">View Works</a>
+      <a class="btn secondary" href="/resume" data-i18n="readResume">Read Resume</a>
+    </div>
+    <aside class="status mono">
+      <div><b data-i18n="statusLabel">Status</b><span data-i18n="statusValue">{profile.status}</span></div>
+      <div><b data-i18n="locationLabel">Location</b><span data-i18n="locationValue">{profile.location}</span></div>
+      <div><b data-i18n="focusLabel">Focus</b><span>{profile.keywords.slice(0, 3).join(" / ")}</span></div>
+    </aside>
+  </div>
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    min-height: calc(100vh - 72px);
+    display: grid;
+    align-items: center;
+    border-bottom: 1px solid rgba(244, 244, 240, 0.18);
+  }
+
+  .hero::after {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    width: 38vw;
+    height: 58vh;
+    content: "";
+    border-top: 1px solid var(--line);
+    border-left: 1px solid var(--line);
+    background: linear-gradient(135deg, transparent, rgba(244, 244, 240, 0.04));
+    clip-path: polygon(22% 0, 100% 0, 100% 100%, 0 100%, 0 22%);
+  }
+
+  .hero-inner {
+    position: relative;
+    z-index: 2;
+    display: grid;
+    min-height: calc(100vh - 72px);
+    align-content: end;
+    padding: 90px 0 54px;
+  }
+
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 22px;
+    color: var(--muted);
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 0.18em;
+  }
+
+  .eyebrow span {
+    width: 9px;
+    height: 9px;
+    background: var(--accent);
+    box-shadow: 0 0 18px var(--accent);
+  }
+
+  .eyebrow em {
+    font-style: normal;
+  }
+
+  h1 {
+    max-width: 1120px;
+    margin: 0;
+    font-size: clamp(62px, 13.5vw, 190px);
+    font-weight: 950;
+    letter-spacing: -0.095em;
+    line-height: 0.78;
+    text-transform: uppercase;
+  }
+
+  .hero-copy {
+    display: grid;
+    grid-template-columns: minmax(0, 0.95fr) minmax(280px, 0.65fr);
+    gap: 34px;
+    align-items: start;
+    max-width: 1000px;
+    margin-top: 34px;
+  }
+
+  .lead {
+    max-width: 780px;
+    margin: 0;
+    color: var(--accent);
+    font-family: "JetBrains Mono", Consolas, monospace;
+    font-size: clamp(16px, 2vw, 25px);
+    font-weight: 800;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .tagline {
+    max-width: 620px;
+    margin: 0;
+    color: var(--muted);
+    font-size: 20px;
+    line-height: 1.6;
+  }
+
+  .actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 28px;
+  }
+
+  .status {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    margin-top: 48px;
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .status div {
+    padding: 18px;
+    border-right: 1px solid var(--line);
+    background: rgba(5, 5, 5, 0.45);
+  }
+
+  .status b,
+  .status span {
+    display: block;
+  }
+
+  .status b {
+    margin-bottom: 10px;
+    color: var(--muted);
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+
+  .status span {
+    color: var(--text);
+    font-size: 13px;
+    line-height: 1.5;
+  }
+
+  @media (max-width: 760px) {
+    .hero {
+      min-height: auto;
+    }
+
+    .status {
+      grid-template-columns: 1fr;
+    }
+
+    .hero-copy {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

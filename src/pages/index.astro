@@ -1,0 +1,24 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Header from "@/components/Header.astro";
+import Hero from "@/components/Hero.astro";
+import AboutBlock from "@/components/AboutBlock.astro";
+import ProjectList from "@/components/ProjectList.astro";
+import ResumeSnapshot from "@/components/ResumeSnapshot.astro";
+import BlogTeaser from "@/components/BlogTeaser.astro";
+import ContactBlock from "@/components/ContactBlock.astro";
+import MarqueeStrip from "@/components/MarqueeStrip.astro";
+---
+
+<BaseLayout title="Personal Lab | Future Editorial Portfolio">
+  <Header />
+  <main>
+    <Hero />
+    <MarqueeStrip />
+    <AboutBlock />
+    <ProjectList />
+    <ResumeSnapshot />
+    <BlogTeaser />
+    <ContactBlock />
+  </main>
+</BaseLayout>

@@ -1,0 +1,60 @@
+---
+interface Props {
+  index: string;
+  title: string;
+  kicker?: string;
+  titleKey?: string;
+  kickerKey?: string;
+}
+
+const { index, title, kicker, titleKey, kickerKey } = Astro.props;
+---
+
+<div class="section-header">
+  <span class="mono">{index}</span>
+  <div>
+    {kicker && <p class="mono" data-i18n={kickerKey}>{kicker}</p>}
+    <h2 data-i18n={titleKey}>{title}</h2>
+  </div>
+</div>
+
+<style>
+  .section-header {
+    display: grid;
+    grid-template-columns: 90px 1fr;
+    gap: 24px;
+    margin-bottom: 34px;
+  }
+
+  .section-header > span {
+    color: var(--accent);
+    font-weight: 900;
+    letter-spacing: 0.18em;
+  }
+
+  p {
+    margin: 0 0 8px;
+    color: var(--muted);
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+
+  h2 {
+    max-width: 900px;
+    margin: 0;
+    font-size: clamp(36px, 6vw, 88px);
+    font-weight: 930;
+    letter-spacing: -0.06em;
+    line-height: 0.92;
+    text-transform: uppercase;
+  }
+
+  @media (max-width: 760px) {
+    .section-header {
+      grid-template-columns: 1fr;
+      gap: 10px;
+    }
+  }
+</style>

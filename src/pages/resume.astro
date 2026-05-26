@@ -1,0 +1,111 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Header from "@/components/Header.astro";
+import ContactBlock from "@/components/ContactBlock.astro";
+import { profile, skills, timeline } from "@/data/profile";
+---
+
+<BaseLayout title="Resume | Personal Lab">
+  <Header />
+  <main class="container page">
+    <p class="mono eyebrow" data-i18n="pageResumeKicker">PROFILE RECORD</p>
+    <h1>{profile.name}</h1>
+    <p class="role">{profile.role}</p>
+    <section class="grid">
+      <div class="cut-card panel">
+        <h2 class="mono" data-i18n="timeline">Experience</h2>
+        {timeline.map((item) => (
+          <article>
+            <span class="mono">{item.year}</span>
+            <h3>{item.title}</h3>
+            <p>{item.detail}</p>
+          </article>
+        ))}
+      </div>
+      <div class="cut-card panel">
+        <h2 class="mono" data-i18n="skillMatrix">Skills</h2>
+        {skills.map((skill) => (
+          <article>
+            <span class="mono">{skill.group}</span>
+            <p>{skill.items.join(" / ")}</p>
+          </article>
+        ))}
+      </div>
+    </section>
+  </main>
+  <ContactBlock />
+</BaseLayout>
+
+<style>
+  .page {
+    padding: 86px 0;
+  }
+
+  .eyebrow {
+    color: var(--accent);
+    font-size: 12px;
+    font-weight: 900;
+    letter-spacing: 0.18em;
+  }
+
+  h1 {
+    margin: 0;
+    font-size: clamp(58px, 12vw, 160px);
+    letter-spacing: -0.08em;
+    line-height: 0.86;
+    text-transform: uppercase;
+  }
+
+  .role {
+    color: var(--muted);
+    font-size: 22px;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr;
+    gap: 18px;
+    margin-top: 44px;
+  }
+
+  .panel {
+    padding: 30px;
+  }
+
+  h2 {
+    margin: 0 0 20px;
+    color: var(--accent);
+    font-size: 13px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+
+  article {
+    padding: 22px 0;
+    border-top: 1px solid var(--line);
+  }
+
+  span {
+    color: var(--muted);
+    font-size: 12px;
+    letter-spacing: 0.13em;
+  }
+
+  h3 {
+    margin: 10px 0;
+    font-size: 26px;
+    letter-spacing: -0.04em;
+  }
+
+  article p {
+    margin: 0;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  @media (max-width: 880px) {
+    .grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

@@ -1,0 +1,86 @@
+---
+import { getCollection } from "astro:content";
+import SectionHeader from "./SectionHeader.astro";
+
+const posts = (await getCollection("blog"))
+  .sort((a, b) => b.data.published.getTime() - a.data.published.getTime())
+  .slice(0, 3);
+
+const toSlug = (id: string) => id.replace(/\.(md|mdx)$/, "");
+---
+
+<section class="section">
+  <div class="container">
+    <SectionHeader
+      index="03"
+      kicker="Technical Logs"
+      title="Writing as durable technical memory."
+      kickerKey="blogKicker"
+      titleKey="blogTitle"
+    />
+    <div class="logs">
+      {
+        posts.map((post, index) => (
+          <a class="log-row" href={`/blog/${toSlug(post.id)}/`}>
+            <span class="mono">{String(index + 1).padStart(2, "0")}</span>
+            <div>
+              <h3>{post.data.title}</h3>
+              <p>{post.data.description}</p>
+            </div>
+            <time class="mono" datetime={post.data.published.toISOString()}>
+              {post.data.published.toISOString().slice(0, 10)}
+            </time>
+          </a>
+        ))
+      }
+    </div>
+    <a class="btn secondary all" href="/blog" data-i18n="allLogs">All Logs</a>
+  </div>
+</section>
+
+<style>
+  .logs {
+    border-top: 1px solid var(--line);
+  }
+
+  .log-row {
+    display: grid;
+    grid-template-columns: 70px 1fr 140px;
+    gap: 24px;
+    padding: 24px 0;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .log-row:hover h3 {
+    color: var(--accent);
+  }
+
+  .log-row > span,
+  time {
+    color: var(--muted);
+    font-size: 12px;
+    letter-spacing: 0.14em;
+  }
+
+  h3 {
+    margin: 0;
+    font-size: clamp(24px, 3vw, 42px);
+    letter-spacing: -0.05em;
+    text-transform: uppercase;
+  }
+
+  p {
+    margin: 10px 0 0;
+    color: var(--muted);
+  }
+
+  .all {
+    margin-top: 28px;
+  }
+
+  @media (max-width: 760px) {
+    .log-row {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
