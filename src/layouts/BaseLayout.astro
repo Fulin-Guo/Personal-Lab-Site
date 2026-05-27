@@ -10,6 +10,9 @@ const {
   title = "Future Editorial Portfolio",
   description = "A sharp monochrome personal homepage for resume, projects, and technical writing.",
 } = Astro.props;
+
+const umamiScriptSrc = import.meta.env.PUBLIC_UMAMI_SCRIPT_SRC;
+const umamiWebsiteId = import.meta.env.PUBLIC_UMAMI_WEBSITE_ID;
 ---
 
 <!doctype html>
@@ -20,6 +23,11 @@ const {
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
+    {
+      umamiScriptSrc && umamiWebsiteId && (
+        <script is:inline defer src={umamiScriptSrc} data-website-id={umamiWebsiteId}></script>
+      )
+    }
   </head>
   <body>
     <slot />

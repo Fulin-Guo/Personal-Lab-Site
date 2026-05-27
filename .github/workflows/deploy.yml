@@ -1,0 +1,57 @@
+name: Deploy site
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    env:
+      DEPLOY_PATH: ${{ vars.SERVER_DEPLOY_PATH || '/opt/personal-lab-site' }}
+      PUBLIC_UMAMI_BASE_URL: ${{ vars.PUBLIC_UMAMI_BASE_URL }}
+      PUBLIC_UMAMI_SCRIPT_SRC: ${{ vars.PUBLIC_UMAMI_SCRIPT_SRC }}
+      PUBLIC_UMAMI_WEBSITE_ID: ${{ vars.PUBLIC_UMAMI_WEBSITE_ID }}
+      PUBLIC_UMAMI_SHARE_URL: ${{ vars.PUBLIC_UMAMI_SHARE_URL }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build
+        run: pnpm build
+
+      - name: Pack static files
+        run: tar -czf site.tar.gz -C dist .
+
+      - name: Configure SSH
+        run: |
+          mkdir -p ~/.ssh
+          printf '%s\n' "${{ secrets.SERVER_SSH_KEY }}" > ~/.ssh/id_ed25519
+          chmod 600 ~/.ssh/id_ed25519
+          ssh-keyscan -p "${{ secrets.SERVER_PORT || '22' }}" "${{ secrets.SERVER_HOST }}" >> ~/.ssh/known_hosts
+
+      - name: Upload release archive
+        run: |
+          scp -P "${{ secrets.SERVER_PORT || '22' }}" site.tar.gz \
+            "${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }}:/tmp/personal-lab-site.tar.gz"
+
+      - name: Activate release
+        run: |
+          RELEASE_ID="$(date +%Y%m%d%H%M%S)-${GITHUB_SHA::7}"
+          ssh -p "${{ secrets.SERVER_PORT || '22' }}" "${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }}" \
+            "APP_ROOT='${DEPLOY_PATH}' bash -s -- /tmp/personal-lab-site.tar.gz '$RELEASE_ID'" < deploy/server-deploy.sh

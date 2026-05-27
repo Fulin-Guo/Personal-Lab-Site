@@ -1,0 +1,124 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Header from "@/components/Header.astro";
+import ContactBlock from "@/components/ContactBlock.astro";
+
+const shareUrl = import.meta.env.PUBLIC_UMAMI_SHARE_URL;
+const analyticsUrl = import.meta.env.PUBLIC_UMAMI_BASE_URL;
+---
+
+<BaseLayout title="Stats | Personal Lab" description="Public website telemetry and analytics dashboard.">
+  <Header />
+  <main class="container page">
+    <p class="mono eyebrow">SITE TELEMETRY / PUBLIC STATS</p>
+    <h1>Website data.</h1>
+    <section class="intro cut-card">
+      <div>
+        <span class="mono">READ ONLY</span>
+        <h2>Traffic, pages, referrers, devices, and regions.</h2>
+      </div>
+      <p>
+        This page is designed as a public analytics surface for the personal homepage. It can embed an Umami share dashboard after deployment.
+      </p>
+    </section>
+
+    {
+      shareUrl ? (
+        <section class="dashboard cut-card">
+          <iframe title="Public website analytics" src={shareUrl} loading="lazy"></iframe>
+        </section>
+      ) : (
+        <section class="empty cut-card">
+          <span class="mono">PENDING CONFIG</span>
+          <h2>Set PUBLIC_UMAMI_SHARE_URL to enable the visual dashboard.</h2>
+          <p>
+            After Umami is deployed, create a public Share URL in Umami and add it as a GitHub Actions variable named
+            <code> PUBLIC_UMAMI_SHARE_URL</code>.
+          </p>
+          {analyticsUrl && <a class="btn secondary" href={analyticsUrl}>Open Analytics</a>}
+        </section>
+      )
+    }
+  </main>
+  <ContactBlock />
+</BaseLayout>
+
+<style>
+  .page {
+    padding: 86px 0;
+  }
+
+  .eyebrow {
+    color: var(--accent);
+    font-size: 12px;
+    font-weight: 900;
+    letter-spacing: 0.18em;
+  }
+
+  h1 {
+    margin: 0 0 48px;
+    font-size: clamp(58px, 12vw, 160px);
+    letter-spacing: -0.08em;
+    line-height: 0.86;
+    text-transform: uppercase;
+  }
+
+  .intro {
+    display: grid;
+    grid-template-columns: 1fr 0.8fr;
+    gap: 28px;
+    margin-bottom: 18px;
+    padding: 30px;
+  }
+
+  .intro span,
+  .empty span {
+    color: var(--accent);
+    font-size: 12px;
+    font-weight: 900;
+    letter-spacing: 0.18em;
+  }
+
+  h2 {
+    margin: 12px 0 0;
+    font-size: clamp(28px, 4vw, 58px);
+    letter-spacing: -0.06em;
+    line-height: 0.95;
+    text-transform: uppercase;
+  }
+
+  p {
+    color: var(--muted);
+    font-size: 18px;
+    line-height: 1.65;
+  }
+
+  .dashboard {
+    height: min(78vh, 920px);
+    min-height: 620px;
+    padding: 0;
+    overflow: hidden;
+    background: #070707;
+  }
+
+  iframe {
+    width: 100%;
+    height: 100%;
+    border: 0;
+    background: #fff;
+  }
+
+  .empty {
+    padding: 34px;
+  }
+
+  code {
+    color: var(--accent);
+  }
+
+  @media (max-width: 860px) {
+    .intro {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
